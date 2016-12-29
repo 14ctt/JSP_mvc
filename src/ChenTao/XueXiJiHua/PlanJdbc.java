@@ -109,7 +109,9 @@ public class PlanJdbc {
 		return flag;
 	}
 	
-	
+	public void findone(){
+		
+	}
 
 	public Connection getCon() {
 		return con;
