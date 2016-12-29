@@ -32,7 +32,6 @@ public class PlanJdbc {
 		}
 	}
 	
-	public boolean 
 
 	public Connection getCon() {
 		return con;
