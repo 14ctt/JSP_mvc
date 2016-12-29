@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 public class PlanJdbc {
@@ -32,6 +33,85 @@ public class PlanJdbc {
 		}
 	}
 	
+	public boolean update(Plan plan){
+		boolean flag = false;
+		
+		String sql = "update plan set planName = ? plancontent = ?,userid = ? ";
+		
+		con = getConnection();
+		try {
+			
+			ps = con.prepareStatement(sql);
+			
+			ps.setString(1, plan.getPlanName());
+			ps.setString(2, plan.getPlancontent());
+			ps.setInt(3, plan.getUserid());			
+			
+			int tf=ps.executeUpdate();
+			ps.close();
+			con.close();
+			if(tf>0){
+				flag =true;
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return flag;
+	}
+	
+	public boolean insert(Plan plan){
+		boolean flag = false;
+		String sql = "insert into plan values(?,?,?)";
+		
+		try {
+			
+			ps = con.prepareStatement(sql);
+			
+			ps.setString(1, plan.getPlanName());
+			ps.setString(2, plan.getPlancontent());
+			ps.setInt(3, plan.getUserid());
+			
+			int tf = ps.executeUpdate();
+			ps.close();
+			con.close();
+			if(tf>0){
+				flag = false;
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return flag;
+	}
+	
+	public boolean delete(int userid){
+		boolean flag = false;
+		String sql = "delete from plan where userid = ?";
+		
+		try {
+			
+			ps = con.prepareStatement(sql);
+			
+			ps.setInt(1,userid);
+			
+			int tf = ps.executeUpdate();
+			if(tf>0){
+				flag = true;
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+		
+		return flag;
+	}
+	
+	public void findone(){
+		
+	}
 
 	public Connection getCon() {
 		return con;
