@@ -20,6 +20,7 @@ function playPause(image){
 		player.pause();
 		image.src = "img/musicBtnOff.png"
 		
+		
 	}
 }
 
