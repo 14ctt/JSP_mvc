@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 public class PlanJdbc {
@@ -30,6 +31,60 @@ public class PlanJdbc {
 			e.printStackTrace();
 			return null;
 		}
+	}
+	
+	public boolean update(Plan plan){
+		boolean flag = false;
+		
+		String sql = "update plan set planName = ? plancontent = ?,userid = ? ";
+		
+		con = getConnection();
+		try {
+			
+			ps = con.prepareStatement(sql);
+			
+			ps.setString(1, plan.getUserName());
+			ps.setString(2, plan.getPlancontent());
+			ps.setInt(3, plan.getUserid());			
+			
+			int tf=ps.executeUpdate();
+			ps.close();
+			con.close();
+			if(tf>0){
+				flag =true;
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return flag;
+	}
+	
+	public boolean insert(Plan plan){
+		boolean flag = false;
+		String sql = "insert into plan values(?,?,?)";
+		
+		try {
+			
+			ps = con.prepareStatement(sql);
+			
+			ps.setString(1, plan.getUserName());
+			ps.setString(2, plan.getPlancontent());
+			ps.setInt(3, plan.getUserid());
+			
+			int tf = ps.executeUpdate();
+			ps.close();
+			con.close();
+			if(tf>0){
+				flag = false;
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return flag;
 	}
 	
 
