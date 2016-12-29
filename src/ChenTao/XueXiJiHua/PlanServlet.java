@@ -71,7 +71,24 @@ public class PlanServlet extends HttpServlet {
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/html");
 		
+		String flag = request.getParameter("flag");
+		String planName = request.getParameter("planName");
+		String plancontent = request.getParameter("plancontent");
+		int userid = (int) Integer.parseInt((String) request.getSession().getAttribute("userid"));
 		
+		Plan plan = new Plan();
+		plan.setPlanName(planName);
+		plan.setPlancontent(plancontent);
+		plan.setUserid(userid);
+		
+		PlanJdbc planJdbc = new PlanJdbc();
+		if(flag.equals("Ìí¼Ó")){
+			planJdbc.insert(plan);
+		}else if(flag.equals("¸üÐÂ")){
+			planJdbc.update(plan);
+		}else if(flag.equals("É¾³ý")){
+			planJdbc.delete(userid);
+		}
 		
 //		PrintWriter out = response.getWriter();
 //		out

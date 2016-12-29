@@ -43,7 +43,7 @@ public class PlanJdbc {
 			
 			ps = con.prepareStatement(sql);
 			
-			ps.setString(1, plan.getUserName());
+			ps.setString(1, plan.getPlanName());
 			ps.setString(2, plan.getPlancontent());
 			ps.setInt(3, plan.getUserid());			
 			
@@ -69,7 +69,7 @@ public class PlanJdbc {
 			
 			ps = con.prepareStatement(sql);
 			
-			ps.setString(1, plan.getUserName());
+			ps.setString(1, plan.getPlanName());
 			ps.setString(2, plan.getPlancontent());
 			ps.setInt(3, plan.getUserid());
 			
@@ -86,6 +86,29 @@ public class PlanJdbc {
 		
 		return flag;
 	}
+	
+	public boolean delete(int userid){
+		boolean flag = false;
+		String sql = "delete from plan where userid = ?";
+		
+		try {
+			
+			ps = con.prepareStatement(sql);
+			
+			ps.setInt(1,userid);
+			
+			int tf = ps.executeUpdate();
+			if(tf>0){
+				flag = true;
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+		
+		return flag;
+	}
+	
 	
 
 	public Connection getCon() {
