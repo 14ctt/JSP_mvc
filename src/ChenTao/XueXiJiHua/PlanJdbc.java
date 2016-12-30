@@ -6,14 +6,21 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PlanJdbc {
 	private Connection con;
 	private Statement st;
 	private PreparedStatement ps;
 	private ResultSet rs;
+	private List<Plan> list;
+	private Plan plan;
 
 	public PlanJdbc() {
+		
+	}
+	public void mm(){
 		
 	}
 	
@@ -36,7 +43,7 @@ public class PlanJdbc {
 	public boolean update(Plan plan){
 		boolean flag = false;
 		
-		String sql = "update plan set planName = ? plancontent = ?,userid = ? ";
+		String sql = "update plans set planName = ? plancontent = ?,userid = ? ";
 		
 		con = getConnection();
 		try {
@@ -63,7 +70,8 @@ public class PlanJdbc {
 	
 	public boolean insert(Plan plan){
 		boolean flag = false;
-		String sql = "insert into plan values(?,?,?)";
+		con = getConnection();
+		String sql = "insert into plans values(?,?,?)";
 		
 		try {
 			
@@ -77,9 +85,9 @@ public class PlanJdbc {
 			ps.close();
 			con.close();
 			if(tf>0){
-				flag = false;
+				flag = true;
 			}
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -89,7 +97,8 @@ public class PlanJdbc {
 	
 	public boolean delete(int userid){
 		boolean flag = false;
-		String sql = "delete from plan where userid = ?";
+		con = getConnection();
+		String sql = "delete from plans where userid = ?";
 		
 		try {
 			
@@ -109,43 +118,132 @@ public class PlanJdbc {
 		return flag;
 	}
 	
-	public void findone(){
+	/**
+	 * 查询计划标题
+	 * @param userid
+	 * @return
+	 */
+	public List<String> findTitle(int userid){
+		List<String> ll = new ArrayList<String>();
+		
+		con = getConnection();
+		String sql ="select * from plans where userid = ?";
+		
+		try {
+			
+			ps = con.prepareStatement(sql);
+			
+			ps.setInt(1, userid);
+			
+			rs = ps.executeQuery();
+			
+			while(rs.next()){
+				
+				String planTitle = rs.getString("planName");
+				
+				ll.add(planTitle);
+			}
+			
+			rs.close();
+			ps.close();
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return ll;
+		
+	
+	}
+	
+	/**
+	 * 查询单个计划
+	 * @param userid
+	 * @return
+	 */
+	public List<Plan> findOne(int userid){
+		
+		con = getConnection();
+		String sql ="select * from plans where userid = ?";
+		
+		try {
+			
+			ps = con.prepareStatement(sql);
+			
+			ps.setInt(1, userid);
+			
+			rs = ps.executeQuery();
+			
+			list = new ArrayList<Plan>();
+			while(rs.next()){
+				
+				plan = new Plan();
+				
+				plan.setPlanName(rs.getString("planName"));
+				plan.setPlancontent(rs.getString("plancontent"));
+				
+				list.add(plan);
+			}
+			
+			rs.close();
+			ps.close();
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return list;
+		
+	}
+	
+	//查询所有计划
+	public List<Plan> findAll(){
+		
+		con = getConnection();
+		String sql ="select * from plans";
+		
+		try {
+			
+			ps = con.prepareStatement(sql);
+			
+			rs = ps.executeQuery();
+			
+			list = new ArrayList<Plan>();
+			while(rs.next()){
+				
+				plan = new Plan();
+				
+				plan.setPlanName(rs.getString("planName"));
+				plan.setPlancontent(rs.getString("plancontent"));
+				
+				list.add(plan);
+			}
+			
+			rs.close();
+			ps.close();
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return list;
 		
 	}
 
-	public Connection getCon() {
-		return con;
-	}
-
-	public void setCon(Connection con) {
-		this.con = con;
-	}
-
-	public Statement getSt() {
-		return st;
-	}
-
-	public void setSt(Statement st) {
-		this.st = st;
-	}
-
-	public PreparedStatement getPs() {
-		return ps;
-	}
-
-	public void setPs(PreparedStatement ps) {
-		this.ps = ps;
-	}
-
-	public ResultSet getRs() {
-		return rs;
-	}
-
-	public void setRs(ResultSet rs) {
-		this.rs = rs;
-	}
 	
 	
+//	public static void main(String[] args){
+//		Plan plan = new Plan();
+//		plan.setPlanName("这是标题");
+//		plan.setPlancontent("这是内容");
+//		plan.setUserid(3);
+//		PlanJdbc obj = new PlanJdbc();
+//		obj .insert(plan);
+//		
+//	}
 	
 
 }

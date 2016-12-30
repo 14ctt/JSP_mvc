@@ -74,7 +74,7 @@ public class PlanServlet extends HttpServlet {
 		String flag = request.getParameter("flag");
 		String planName = request.getParameter("planName");
 		String plancontent = request.getParameter("plancontent");
-		int userid = (int) Integer.parseInt((String) request.getSession().getAttribute("userid"));
+		int userid = (int)(request.getSession().getAttribute("userid"));
 		
 		Plan plan = new Plan();
 		plan.setPlanName(planName);
@@ -82,27 +82,33 @@ public class PlanServlet extends HttpServlet {
 		plan.setUserid(userid);
 		
 		PlanJdbc planJdbc = new PlanJdbc();
+		
+		boolean panduan = false;
+		
 		if(flag.equals("添加")){
-			planJdbc.insert(plan);
-		}else if(flag.equals("更新")){
-			planJdbc.update(plan);
+			panduan = planJdbc.insert(plan);
+		}
+		else if(flag.equals("更新")){
+			panduan = planJdbc.update(plan);
 		}else if(flag.equals("删除")){
-			planJdbc.delete(userid);
+			panduan = planJdbc.delete(userid);
 		}
 		
-//		PrintWriter out = response.getWriter();
-//		out
-//				.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">");
-//		out.println("<HTML>");
-//		out.println("  <HEAD><TITLE>A Servlet</TITLE></HEAD>");
-//		out.println("  <BODY>");
-//		out.print("    This is ");
-//		out.print(this.getClass());
-//		out.println(", using the POST method");
-//		out.println("  </BODY>");
-//		out.println("</HTML>");
-//		out.flush();
-//		out.close();
+		PrintWriter out = response.getWriter();
+		out
+				.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">");
+		out.println("<HTML>");
+		out.println("  <HEAD><TITLE>A Servlet</TITLE></HEAD>");
+		out.println("  <BODY>");
+		if(panduan){
+		out.print("添加成功！"+userid+plancontent+planName+flag);
+		}
+		out.print(this.getClass());
+		out.println(userid+plancontent+planName+flag);
+		out.println("  </BODY>");
+		out.println("</HTML>");
+		out.flush();
+		out.close();
 	}
 
 	/**

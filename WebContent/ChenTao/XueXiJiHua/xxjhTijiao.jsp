@@ -8,6 +8,8 @@
 </head>
 <body>
 <form action="/JSP_mvc/planservlet" method="post">
+<%session.setAttribute("userid", 1); %>
+<input name="flag" style="display: none;" value="添加"/>
 <input name = "planName" type="text"/>
 <textarea name="plancontent" rows="50" cols="100"></textarea>
 <button type="submit">保存</button>
