@@ -20,9 +20,6 @@ public class PlanJdbc {
 	public PlanJdbc() {
 		
 	}
-	public void mm(){
-		
-	}
 	
 	public Connection getConnection(){
 		String driverName="com.microsoft.sqlserver.jdbc.SQLServerDriver";
@@ -43,7 +40,7 @@ public class PlanJdbc {
 	public boolean update(Plan plan){
 		boolean flag = false;
 		
-		String sql = "update plans set planName = ? plancontent = ?,userid = ? ";
+		String sql = "update plans set planName = ? plancontent = ? where userid = ? ";
 		
 		con = getConnection();
 		try {
@@ -113,7 +110,7 @@ public class PlanJdbc {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}		
+		}
 		
 		return flag;
 	}
@@ -235,15 +232,15 @@ public class PlanJdbc {
 
 	
 	
-//	public static void main(String[] args){
-//		Plan plan = new Plan();
-//		plan.setPlanName("这是标题");
-//		plan.setPlancontent("这是内容");
-//		plan.setUserid(3);
-//		PlanJdbc obj = new PlanJdbc();
-//		obj .insert(plan);
-//		
-//	}
+	public static void main(String[] args){
+		Plan plan = new Plan();
+		plan.setPlanName("这是标题");
+		plan.setPlancontent("这是内容");
+		plan.setUserid(3);
+		PlanJdbc obj = new PlanJdbc();
+		obj .insert(plan);
+		
+	}
 	
 
 }
