@@ -3,6 +3,7 @@ package ChenTao.XueXiJiHua;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -87,28 +88,30 @@ public class PlanServlet extends HttpServlet {
 		
 		if(flag.equals("添加")){
 			panduan = planJdbc.insert(plan);
+			if(panduan){
+				request.setAttribute("panduan", "添加成功！");
+			}else{
+				request.setAttribute("panduan", "添加失败！");
+			}
 		}
 		else if(flag.equals("更新")){
 			panduan = planJdbc.update(plan);
+			if(panduan){
+				request.setAttribute("panduan", "更新成功！");
+			}else{
+				request.setAttribute("panduan", "更新失败！");
+			}
 		}else if(flag.equals("删除")){
 			panduan = planJdbc.delete(userid);
+			if(panduan){
+				request.setAttribute("panduan", "删除成功！");
+			}else{
+				request.setAttribute("panduan", "删除失败！");
+			}
 		}
 		
-		PrintWriter out = response.getWriter();
-		out
-				.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">");
-		out.println("<HTML>");
-		out.println("  <HEAD><TITLE>A Servlet</TITLE></HEAD>");
-		out.println("  <BODY>");
-		if(panduan){
-		out.print("添加成功！"+userid+plancontent+planName+flag);
-		}
-		out.print(this.getClass());
-		out.println(userid+plancontent+planName+flag);
-		out.println("  </BODY>");
-		out.println("</HTML>");
-		out.flush();
-		out.close();
+		RequestDispatcher rd = request.getRequestDispatcher("showPlanAll.jsp");
+		rd.forward(request, response);
 	}
 
 	/**

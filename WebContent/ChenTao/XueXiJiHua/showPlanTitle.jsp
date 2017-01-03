@@ -21,7 +21,7 @@ response.setContentType("text/html");
 <%session.setAttribute("userid", 1); %>
 
 <c:forEach var = "rs" items="${ user.findTitle(1)}" >
-<tr><td><c:out value="${rs }"/></td><td><a href="update.jsp?planName=<c:out value='${rs }'/>"><button>查看计划</button></a></td><td><button>修改计划</button></td><td><button>删除计划</button></td></tr>
+<tr><td><c:out value="${rs }"/></td><td><a href="update.jsp?planName= <c:out value='${rs }'/> "><button>查看计划</button></a></td><td><button>修改计划</button></td><td><button>删除计划</button></td></tr>
 </c:forEach>
 </table>
 ${sessionScope.userid}

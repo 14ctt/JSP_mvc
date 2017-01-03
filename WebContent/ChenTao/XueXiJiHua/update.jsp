@@ -22,12 +22,11 @@ response.setContentType("text/html");
 
 <input name="flag" style="display: none;" value="更新"/>
 <%
-int userid = (int)session.getAttribute("userid");
+int userid =Integer.parseInt(session.getAttribute("userid").toString());
 String planName = request.getParameter("planName");
 List<Plan> ll= user.findOne(userid, planName);
 Plan plan = ll.get(0);
 %>
-
 
 <input name = "planName" value="<%=planName%>"/>
 <textarea rows="50" cols="100" name= "plancontent"><%=plan.getPlancontent()%></textarea>
