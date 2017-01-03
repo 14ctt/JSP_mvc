@@ -128,6 +128,7 @@ body{margin:30px auto;background:url("img/2.gif") repeat;}
      <div id="top">
      
         <ul id="u1">
+        
           <li>首页</li>&nbsp;
           <li>个人信息
           <ul>
@@ -139,7 +140,7 @@ body{margin:30px auto;background:url("img/2.gif") repeat;}
           
           <li>科目作业
           <ul>
-          <li>JavaScrip</li><div id="dv1"></div>
+          <li href="#">JavaScrip</li><div id="dv1"></div>
           <li>Android</li><div id="dv1"></div>
           <li>JSP</li><div id="dv1"></div>
           <li>数据结构</li><div id="dv1"></div>
