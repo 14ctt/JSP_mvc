@@ -11,18 +11,19 @@
 <title>显示计划标题</title>
 </head>
 <body>
+<%
+request.setCharacterEncoding("utf-8");
+response.setCharacterEncoding("utf-8");
+response.setContentType("text/html");
+%>
 <jsp:useBean id= "user" class="ChenTao.XueXiJiHua.PlanJdbc"/>
 <table>
-
+<%session.setAttribute("userid", 1); %>
 
 <c:forEach var = "rs" items="${ user.findTitle(1)}" >
-<tr><td><c:out value="${rs }"/></td><td><button>查看计划</button></td><td><button>修改计划</button></td><td><button>删除计划</button></td></tr>
-
+<tr><td><c:out value="${rs }"/></td><td><a href="update.jsp?planName=<c:out value='${rs }'/>"><button>查看计划</button></a></td><td><button>修改计划</button></td><td><button>删除计划</button></td></tr>
 </c:forEach>
 </table>
-<c:forEach var = "rsw" items="${session.getAttribute('userid')}" >
-<c:out value="${rsw }"/>
-</c:forEach>
-<%out.println(session.getAttribute("userid")); %>
+${sessionScope.userid}
 </body>
 </html>

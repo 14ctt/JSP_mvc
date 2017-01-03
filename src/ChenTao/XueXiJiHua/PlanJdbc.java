@@ -159,16 +159,17 @@ public class PlanJdbc {
 	 * @param userid
 	 * @return
 	 */
-	public List<Plan> findOne(int userid){
+	public List<Plan> findOne(int userid,String planName){
 		
 		con = getConnection();
-		String sql ="select * from plans where userid = ?";
+		String sql ="select * from plans where userid = ? and planName = ?";
 		
 		try {
 			
 			ps = con.prepareStatement(sql);
 			
 			ps.setInt(1, userid);
+			ps.setString(2, planName);
 			
 			rs = ps.executeQuery();
 			
@@ -196,14 +197,16 @@ public class PlanJdbc {
 	}
 	
 	//查询所有计划
-	public List<Plan> findAll(){
+	public List<Plan> findAll(int userid){
 		
 		con = getConnection();
-		String sql ="select * from plans";
+		String sql ="select * from plans where userid = ?";
 		
 		try {
 			
 			ps = con.prepareStatement(sql);
+			
+			ps.setInt(1, userid);
 			
 			rs = ps.executeQuery();
 			
@@ -214,6 +217,7 @@ public class PlanJdbc {
 				
 				plan.setPlanName(rs.getString("planName"));
 				plan.setPlancontent(rs.getString("plancontent"));
+				plan.setUserid(rs.getInt("userid"));
 				
 				list.add(plan);
 			}
