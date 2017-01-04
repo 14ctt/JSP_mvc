@@ -79,8 +79,8 @@ public class PlanServlet extends HttpServlet {
 		
 		Plan plan = new Plan();
 		plan.setPlanName(planName);
-		plan.setPlancontent(plancontent);
-		plan.setUserid(userid);
+		plan.setPlancontent(plancontent);		
+		plan.setUserid(userid);	
 		
 		PlanJdbc planJdbc = new PlanJdbc();
 		
@@ -90,27 +90,42 @@ public class PlanServlet extends HttpServlet {
 			panduan = planJdbc.insert(plan);
 			if(panduan){
 				request.setAttribute("panduan", "添加成功！");
+												
+				request.setAttribute("findAll", planJdbc.findAll(userid));
+				request.setAttribute("cr", "插入查询");
 			}else{
 				request.setAttribute("panduan", "添加失败！");
 			}
 		}
 		else if(flag.equals("更新")){
+			int id = Integer.parseInt(request.getParameter("id"));
+			plan.setId(id);
 			panduan = planJdbc.update(plan);
 			if(panduan){
 				request.setAttribute("panduan", "更新成功！");
+				request.setAttribute("findAll", planJdbc.findAll(userid));
+				request.setAttribute("cr", "插入查询");
 			}else{
 				request.setAttribute("panduan", "更新失败！");
 			}
 		}else if(flag.equals("删除")){
-			panduan = planJdbc.delete(userid);
+			int id = Integer.parseInt(request.getParameter("id"));
+			panduan = planJdbc.delete(id);
 			if(panduan){
-				request.setAttribute("panduan", "删除成功！");
+				request.setAttribute("panduan", "“"+planName+"”计划删除成功！");
+				request.setAttribute("findAll", planJdbc.findAll(userid));
+				request.setAttribute("cr", "插入查询");
 			}else{
 				request.setAttribute("panduan", "删除失败！");
 			}
+		}else if(flag.equals("插入查询")){
+			int id = Integer.parseInt(request.getParameter("id"));			
+			request.setAttribute("findOne", planJdbc.findOne(userid, id));
+			RequestDispatcher rd = request.getRequestDispatcher("ChenTao/XueXiJiHua/showplan.jsp");
+			rd.forward(request, response);
 		}
 		
-		RequestDispatcher rd = request.getRequestDispatcher("showPlanAll.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("ChenTao/XueXiJiHua/showPlanAll.jsp");
 		rd.forward(request, response);
 	}
 

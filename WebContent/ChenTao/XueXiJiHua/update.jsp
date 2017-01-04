@@ -21,18 +21,21 @@ response.setContentType("text/html");
 <form action="/JSP_mvc/planservlet" method="post">
 
 <input name="flag" style="display: none;" value="更新"/>
+
 <%
 int userid =Integer.parseInt(session.getAttribute("userid").toString());
-String planName = request.getParameter("planName");
-List<Plan> ll= user.findOne(userid, planName);
+int id = Integer.parseInt(request.getParameter("id"));
+List<Plan> ll= user.findOne(userid, id);
 Plan plan = ll.get(0);
 %>
 
-<input name = "planName" value="<%=planName%>"/>
+<input name="id" style="display:none;"  value="<%=plan.getId()%>"/>
+<input name="userid" style="display:none;"  value="<%=plan.getUserid()%>"/>
+
+<input name = "planName" value="<%=plan.getPlanName()%>"/>
 <textarea rows="50" cols="100" name= "plancontent"><%=plan.getPlancontent()%></textarea>
+
 <button type="submit">保存</button>
-
-
   
  </form>
 </body>

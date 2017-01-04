@@ -40,7 +40,7 @@ public class PlanJdbc {
 	public boolean update(Plan plan){
 		boolean flag = false;
 		
-		String sql = "update plans set planName = ? plancontent = ? where userid = ? ";
+		String sql = "update plans set planName = ? , plancontent = ? where id=? ";
 		
 		con = getConnection();
 		try {
@@ -49,7 +49,7 @@ public class PlanJdbc {
 			
 			ps.setString(1, plan.getPlanName());
 			ps.setString(2, plan.getPlancontent());
-			ps.setInt(3, plan.getUserid());			
+			ps.setInt(3, plan.getId());
 			
 			int tf=ps.executeUpdate();
 			ps.close();
@@ -92,16 +92,16 @@ public class PlanJdbc {
 		return flag;
 	}
 	
-	public boolean delete(int userid){
+	public boolean delete(int id){
 		boolean flag = false;
 		con = getConnection();
-		String sql = "delete from plans where userid = ?";
+		String sql = "delete from plans where id = ?";
 		
 		try {
 			
 			ps = con.prepareStatement(sql);
 			
-			ps.setInt(1,userid);
+			ps.setInt(1,id);
 			
 			int tf = ps.executeUpdate();
 			if(tf>0){
@@ -120,66 +120,69 @@ public class PlanJdbc {
 	 * @param userid
 	 * @return
 	 */
-	public List<String> findTitle(int userid){
-		List<String> ll = new ArrayList<String>();
-		
-		con = getConnection();
-		String sql ="select * from plans where userid = ?";
-		
-		try {
-			
-			ps = con.prepareStatement(sql);
-			
-			ps.setInt(1, userid);
-			
-			rs = ps.executeQuery();
-			
-			while(rs.next()){
-				
-				String planTitle = rs.getString("planName");
-				
-				ll.add(planTitle);
-			}
-			
-			rs.close();
-			ps.close();
-			con.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return ll;
-		
-	
-	}
+//	public List<String> findTitle(int userid){
+//		List<String> ll = new ArrayList<String>();
+//		
+//		con = getConnection();
+//		String sql ="select * from plans where userid = ?";
+//		
+//		try {
+//			
+//			ps = con.prepareStatement(sql);
+//			
+//			ps.setInt(1, userid);
+//			
+//			rs = ps.executeQuery();
+//			
+//			while(rs.next()){
+//				
+//				String planTitle = rs.getString("planName");
+//				
+//				ll.add(planTitle);
+//			}
+//			
+//			rs.close();
+//			ps.close();
+//			con.close();
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+//		return ll;
+//		
+//	
+//	}
 	
 	/**
 	 * 查询单个计划
 	 * @param userid
 	 * @return
 	 */
-	public List<Plan> findOne(int userid,String planName){
+	public List<Plan> findOne(int userid,int id){
 		
 		con = getConnection();
-		String sql ="select * from plans where userid = ? and planName = ?";
+		String sql ="select * from plans where userid = ? and id = ?";
 		
 		try {
 			
 			ps = con.prepareStatement(sql);
 			
 			ps.setInt(1, userid);
-			ps.setString(2, planName);
+			ps.setInt(2, id);
 			
 			rs = ps.executeQuery();
 			
 			list = new ArrayList<Plan>();
+			
 			while(rs.next()){
 				
 				plan = new Plan();
 				
 				plan.setPlanName(rs.getString("planName"));
 				plan.setPlancontent(rs.getString("plancontent"));
+				plan.setId(rs.getInt("id"));
+				plan.setUserid(rs.getInt("userid"));
 				
 				list.add(plan);
 			}
@@ -219,6 +222,7 @@ public class PlanJdbc {
 				plan.setPlanName(rs.getString("planName"));
 				plan.setPlancontent(rs.getString("plancontent"));
 				plan.setUserid(rs.getInt("userid"));
+				plan.setId(rs.getInt("id"));
 				
 				list.add(plan);
 			}
