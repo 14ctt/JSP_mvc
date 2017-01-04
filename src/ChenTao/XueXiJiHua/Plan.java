@@ -24,9 +24,7 @@ public class Plan {
 		this.planName = planName;
 	}
 
-	public Plan() {
-
-	}
+	
 
 	public String getPlancontent() {
 		return plancontent;
