@@ -98,16 +98,23 @@ public class PlanServlet extends HttpServlet {
 			}
 		}
 		else if(flag.equals("更新")){
-//			panduan = planJdbc.update(plan);
+			int id = Integer.parseInt(request.getParameter("id"));
+			plan.setId(id);
+			panduan = planJdbc.update(plan);
 			if(panduan){
 				request.setAttribute("panduan", "更新成功！");
+				request.setAttribute("findAll", planJdbc.findAll(userid));
+				request.setAttribute("cr", "插入查询");
 			}else{
 				request.setAttribute("panduan", "更新失败！");
 			}
 		}else if(flag.equals("删除")){
-//			panduan = planJdbc.delete(userid);
+			int id = Integer.parseInt(request.getParameter("id"));
+			panduan = planJdbc.delete(id);
 			if(panduan){
-				request.setAttribute("panduan", "删除成功！");
+				request.setAttribute("panduan", "“"+planName+"”计划删除成功！");
+				request.setAttribute("findAll", planJdbc.findAll(userid));
+				request.setAttribute("cr", "插入查询");
 			}else{
 				request.setAttribute("panduan", "删除失败！");
 			}

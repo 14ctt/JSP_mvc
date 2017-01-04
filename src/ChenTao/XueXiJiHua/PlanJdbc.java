@@ -37,33 +37,33 @@ public class PlanJdbc {
 		}
 	}
 	
-//	public boolean update(Plan plan){
-//		boolean flag = false;
-//		
-//		String sql = "update plans set planName = ? , plancontent = ? where userid = ? ";
-//		
-//		con = getConnection();
-//		try {
-//			
-//			ps = con.prepareStatement(sql);
-//			
-//			ps.setString(1, plan.getPlanName());
-//			ps.setString(2, plan.getPlancontent());
-//			ps.setInt(3, plan.getUserid());			
-//			
-//			int tf=ps.executeUpdate();
-//			ps.close();
-//			con.close();
-//			if(tf>0){
-//				flag =true;
-//			}
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		
-//		return flag;
-//	}
+	public boolean update(Plan plan){
+		boolean flag = false;
+		
+		String sql = "update plans set planName = ? , plancontent = ? where id=? ";
+		
+		con = getConnection();
+		try {
+			
+			ps = con.prepareStatement(sql);
+			
+			ps.setString(1, plan.getPlanName());
+			ps.setString(2, plan.getPlancontent());
+			ps.setInt(3, plan.getId());
+			
+			int tf=ps.executeUpdate();
+			ps.close();
+			con.close();
+			if(tf>0){
+				flag =true;
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return flag;
+	}
 	
 	public boolean insert(Plan plan){
 		boolean flag = false;
@@ -92,29 +92,29 @@ public class PlanJdbc {
 		return flag;
 	}
 	
-//	public boolean delete(int userid){
-//		boolean flag = false;
-//		con = getConnection();
-//		String sql = "delete from plans where userid = ?";
-//		
-//		try {
-//			
-//			ps = con.prepareStatement(sql);
-//			
-//			ps.setInt(1,userid);
-//			
-//			int tf = ps.executeUpdate();
-//			if(tf>0){
-//				flag = true;
-//			}
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		
-//		return flag;
-//	}
-//	
+	public boolean delete(int id){
+		boolean flag = false;
+		con = getConnection();
+		String sql = "delete from plans where id = ?";
+		
+		try {
+			
+			ps = con.prepareStatement(sql);
+			
+			ps.setInt(1,id);
+			
+			int tf = ps.executeUpdate();
+			if(tf>0){
+				flag = true;
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return flag;
+	}
+	
 	/**
 	 * 查询计划标题
 	 * @param userid

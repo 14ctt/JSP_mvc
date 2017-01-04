@@ -10,18 +10,44 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Insert title here</title>
+<script type="text/javascript">
+window.onload=function(){
+	<%String s=(String)request.getAttribute("panduan");
+	if(s!=null||s.equals("")){
+		%>
+		alert("<%=s%>");
+		<%
+	}
+	s="";
+	%>
+	
+	
+	
+	
+}
+</script>
 </head>
 <body>
+<a href="ChenTao/XueXiJiHua/showPlanTitle.jsp">返回</a>
 	<table>
+		<%int i =1; %>
 		<c:forEach var="rs" items="${requestScope.findAll }">
 			<tr>
+			<td><%=i++ %></td>
 				<td><c:out value="${rs.getPlanName() }" /></td>
-				<td><form action="/JSP_mvc/planservlet" method="post">
+				<td>
+				
+					<form action="/JSP_mvc/planservlet" method="post">
+					
 						<input name="id" style="display:none;" value="${rs.getId() }"/>
-						<input name="userid" style="display:none;"  value="${rs.getUserid() }"/>
+						<input name="userid" style="display:none;"  value="${rs.getUserid()}"/>
 						<input name="flag" style="display:none;"  value="<%=request.getAttribute("cr")%>"/>
 						<button>查看计划</button>
-					</form></td>
+						
+					</form>
+					
+				</td>
+					
 			</tr>
 		</c:forEach>
 	</table>
