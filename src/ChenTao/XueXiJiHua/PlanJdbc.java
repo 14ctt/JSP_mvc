@@ -202,6 +202,7 @@ public class PlanJdbc {
 		con = getConnection();
 		String sql ="select * from plans where userid = ?";
 		
+		
 		try {
 			
 			ps = con.prepareStatement(sql);

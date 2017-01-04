@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql" %>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+    <%@ page import = "java.util.ArrayList,java.util.List" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -23,6 +27,17 @@ function playPause(image){
 		
 	}
 }
+window.onload=function(){ 
+    document.getElementById('btnn').onclick = function(){       	
+        var obj = document.getElementById("denglu"); 
+  
+        if(obj.style.display == "none"){ 
+                            
+            obj.style.display = "block"; 
+  
+        }      
+        }         
+    }
 
 </script>
 <!-- 最新 Bootstrap 核心 CSS 文件 -->
@@ -58,7 +73,7 @@ function playPause(image){
 	 height: 33px;
 	 background: #343434;
 	 position: relative;
-	 color: red;
+	 color: #44cef6;
 	 height-line:33px;
 	}
 	#top ul li ul{display: none;}
@@ -118,14 +133,16 @@ body{margin:30px auto;background:url("img/2.gif") repeat;}
 		transform: rotate(360deg);
 	}
 }
+#dvv{
+  left: 280px;
+}
+
 </style>
 </head>
 <body>
      <div id="love">
-     <div id="top">
-     
-        <ul id="u1">
-        
+     <div id="top">    
+        <ul id="u1">       
           <li id="dv2"><a href="#">首页</a></li>&nbsp;
           <li id="dv2"><a href="#">个人信息
           <ul>
@@ -137,11 +154,9 @@ body{margin:30px auto;background:url("img/2.gif") repeat;}
           
           <li id="dv2"><a href="#">科目作业</a>
           <ul>
-          <li><a href="#">JavaScrip</li></a><div id="dv1"></div>
-          <li><a href="#">Android</li></a><div id="dv1"></div>
-          <li><a href="#">JSP</li></a><div id="dv1"></div>
-          <li><a href="#">数据结构</li></a><div id="dv1"></div>
-          <li><a href="#">面向对象</li></a><div id="dv1"></div>
+          <li><a href="ZhangBo/ZhangBo.KeMuZuoYe/KeMuZuoYe.jsp" id="btnn">作业查看</li></a><div id="dv1"></div>
+          <li><a href="ZhangBo/ZhangBo.KeMuZuoYe/ZuoYeTianJia.jsp">添加作业</li></a><div id="dv1"></div>
+
          </ul>
           
           </li>&nbsp;
@@ -163,7 +178,8 @@ body{margin:30px auto;background:url("img/2.gif") repeat;}
                    
           </li>&nbsp;
           <li id="dv2"><a href="#">音乐管理</a>
-          <ul>
+          <ul id="dvv">
+          
           <li><a href="#">我的音乐</li></a><div id="dv1"></div>
           <li><a href="#">上传音乐</li></a><div id="dv1"></div>     
           </ul>
@@ -172,12 +188,33 @@ body{margin:30px auto;background:url("img/2.gif") repeat;}
         </ul>     
      </div>
      <div id="daohang">
-     <marquee>压顶暮云春树裁夺棋</marquee>
+     <marquee>不要等待机会，而是创造机会~~~~</marquee>
      <input type="text" value="搜索">
      <button type="button" class="btn btn-primary btn-sm">Small button</button>
       </div>
       <div id="info">
-   
+      
+        <table border="1px" width="100%"  id="denglu" >
+        
+           <tr height="30px" align="center"><td width="20%"><font color="red">学科科目</font></td><td width="30%"><font color="red">作业标题</font></td><td><font color="red">提交时间</font></td></tr>
+           <c:forEach var = "rs" items="${requestScope.select}">
+           <tr align="center">
+           <td><c:out value="${rs.getKemuname()}"></c:out></td>
+           <td><c:out value="${rs.getZuoyename()}"></c:out></td>
+           <td><c:out value="${rs.getTimes()}"></c:out></td>
+           <td><a href="#">作业详情</a></td>
+           <td><a href="#">作业删除</a></td>
+           </tr>
+           </c:forEach>
+           
+          
+      
+   			
+   					
+   					
+   					
+   			
+   			</table>
       </div>
       
       
