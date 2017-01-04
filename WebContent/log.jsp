@@ -81,7 +81,7 @@ window.onload=function(){
     <div class="b_button">
     
       <a href="#" id="btn">登录</a>
-      <a href="#" class="b_reg">立即注册</a>
+      <a href="zhuce.jsp" class="b_reg">立即注册</a>
     </div>
   
   

@@ -54,4 +54,13 @@
     <servlet-name>workervlet</servlet-name>
     <url-pattern>/workervlet</url-pattern>
   </servlet-mapping>
+  
+   <servlet>
+    <servlet-name>xinxiservlet</servlet-name>
+    <servlet-class>ChenGuang.XinXiServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>xinxiservlet</servlet-name>
+    <url-pattern>/xinxiservlet</url-pattern>
+  </servlet-mapping>
 </web-app>
