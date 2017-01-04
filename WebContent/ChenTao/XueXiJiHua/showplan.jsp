@@ -9,21 +9,16 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Insert title here</title>
+<title>显示单个计划</title>
 </head>
 <body>
-	<table>
-		<c:forEach var="rs" items="${requestScope.findAll }">
-			<tr>
-				<td><c:out value="${rs.getPlanName() }" /></td>
-				<td><form action="/JSP_mvc/planservlet" method="post">
-						<input name="id" style="display:none;" value="${rs.getId() }"/>
-						<input name="userid" style="display:none;"  value="${rs.getUserid() }"/>
-						<input name="flag" style="display:none;"  value="<%=request.getAttribute("cr")%>"/>
-						<button>查看计划</button>
-					</form></td>
-			</tr>
-		</c:forEach>
-	</table>
+	<c:forEach var="rs" items="${requestScope.findOne }">
+		<div style="border:1px dashed #dfjkd; width:200px;">
+			<c:out value="${rs.getPlanName() }" />
+		</div>
+		<div style="border:1px dashed #dfjkd;">
+			<c:out value="${rs.getPlancontent() }"></c:out>
+		</div>
+	</c:forEach>
 </body>
 </html>
